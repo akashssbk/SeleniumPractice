@@ -1,7 +1,7 @@
 from selenium import webdriver
 import time
 
-driver = webdriver.Chrome("/usr/bin/chromedriver.exe")
+driver = webdriver.Chrome()
 driver.get("http://www.pccoepune.com/")
 driver.maximize_window()
 
