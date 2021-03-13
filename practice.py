@@ -47,7 +47,7 @@ time.sleep(3)
 #Element = driver.find_element_by_class_name("button1")
 Element = driver.find_element_by_xpath("//form[@id='ajax-contact-form']/input[4]")
 Element.click()
-
+driver.save_screenshot("image.png")
 time.sleep(3)
 print('Message sent successfully')
 driver.close()
