@@ -4,7 +4,7 @@ from selenium import webdriver
 class Navigation:
   def __init__(self):
     self.url = "http://www.pccoepune.com/";
-    self.imagePath = ""
+    self.imagePath = "/home/ec2-user/my_app/"
     self.imageNo = 1
     self.imageName = "Step"
     self.Element = None
