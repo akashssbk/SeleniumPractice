@@ -1,12 +1,10 @@
-import time
-
 from selenium.webdriver.chrome.options import Options
 from selenium import webdriver
 
-Class Navigation:
+class Navigation:
   def __init__(self):
     self.url = "http://www.pccoepune.com/";
-    self.imagePath = "/home/ec2-user/my_app/"
+    self.imagePath = ""
     self.imageNo = 1
     self.imageName = "Step"
     self.Element = None
@@ -19,14 +17,15 @@ Class Navigation:
     options.add_argument("enable-automation")
     options.add_argument("--disable-infobars")
     options.add_argument("--disable-dev-shm-usage")
-    driver = webdriver.Chrome(options=options)
+    self.driver = webdriver.Chrome(options=options)
 
   def openUrl(self):
     self.driver.get(self.url)
     self.driver.maximize_window()
+    self.takeScreenshot()
     
   def takeScreenshot(self):
-    self.driver.save_screenshot(self.imagePath+self.imageName+self.imageNo)
+    self.driver.save_screenshot(self.imagePath+self.imageName+str(self.imageNo)+".png")
     self.imageNo +=1
   
   def clickElementByLinkText(self,linkText):
@@ -35,54 +34,34 @@ Class Navigation:
     self.takeScreenshot()
     
   def clickElementByX_Path(self,path):
-    self.Element = driver.find_element_by_xpath("//form[@id='ajax-contact-form']/input[1]")
+    self.Element = self.driver.find_element_by_xpath(path)
     self.Element.click()
     
   def sendKeysToElement(self,data):
     self.Element.send_keys(data)
     self.takeScreenshot()
     
-    '''
-Element = driver.find_element_by_xpath("//form[@id='ajax-contact-form']/input[1]")
-Element.click()
-Element.send_keys("auto")
-time.sleep(1)
-driver.save_screenshot("/home/ec2-user/my_app/image-3.png")
+  def closeBrowser(self):
+    self.takeScreenshot()
+    self.driver.close()
 
-#Element = driver.find_element_by_name("email")
-Element = driver.find_element_by_xpath("//form[@id='ajax-contact-form']/input[2]")
-Element.click()
-Element.send_keys("auto@gmail.com")
-time.sleep(1)
-driver.save_screenshot("/home/ec2-user/my_app/image-4.png")
-
-#Element = driver.find_element_by_name("contact")
-Element = driver.find_element_by_xpath("//form[@id='ajax-contact-form']/input[3]")
-Element.click()
-Element.send_keys("0123456789")
-time.sleep(1)
-driver.save_screenshot("/home/ec2-user/my_app/image-5.png")
-
-#Element = driver.find_element_by_name("message")
-Element = driver.find_element_by_xpath("//form[@id='ajax-contact-form']/textarea[1]")
-Element.click()
-Element.send_keys("Hello PCCOE!!!!!!")
-time.sleep(3)
-driver.save_screenshot("/home/ec2-user/my_app/image-6.png")
-
-#Element = driver.find_element_by_class_name("button1")
-Element = driver.find_element_by_xpath("//form[@id='ajax-contact-form']/input[4]")
-Element.click()
-driver.save_screenshot("/home/ec2-user/my_app/image-7.png")
-'''
 obj = Navigation()
 obj.openUrl()
 obj.clickElementByLinkText("Contact Us")
+
 obj.clickElementByX_Path("//form[@id='ajax-contact-form']/input[1]")
 obj.sendKeysToElement("auto")
+
 obj.clickElementByX_Path("//form[@id='ajax-contact-form']/input[2]")
 obj.sendKeysToElement("auto@gmail.com")
 
-time.sleep(3)
+obj.clickElementByX_Path("//form[@id='ajax-contact-form']/input[3]")
+obj.sendKeysToElement("0123456789")
+
+obj.clickElementByX_Path("//form[@id='ajax-contact-form']/textarea[1]")
+obj.sendKeysToElement("Hello PCCOE!!!!!!")
+
+obj.clickElementByX_Path("//form[@id='ajax-contact-form']/input[4]")
+
 print('Message sent successfully')
-driver.close()
+obj.closeBrowser()
