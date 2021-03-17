@@ -6,5 +6,5 @@ RUN apt-get update && apt-get install -y python3 && apt-get install -y python3-p
 RUN apt-get install -y chromium-browser
 #RUN apt-get install -y awscli
 RUN pip3 install -r requirements.txt
-ADD practice.py /
+#ADD practice.py /
 CMD ["python3", "practice.py"]
