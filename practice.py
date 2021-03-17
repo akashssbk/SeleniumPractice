@@ -17,7 +17,7 @@ class Navigation:
     options.add_argument("enable-automation")
     options.add_argument("--disable-infobars")
     options.add_argument("--disable-dev-shm-usage")
-    self.driver = webdriver.Chrome(executable_path='./chromedriver.exe', options=options)
+    self.driver = webdriver.Chrome(executable_path=r"./chromedriver.exe", options=options)
 
   def openUrl(self):
     self.driver.get(self.url)
