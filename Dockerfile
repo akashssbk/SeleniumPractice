@@ -7,4 +7,5 @@ RUN apt-get install -y chromium-browser
 #RUN apt-get install -y awscli
 RUN pip3 install -r requirements.txt
 #ADD practice.py /
+RUN chmod 755 chromedriver
 CMD ["python3", "practice.py"]
