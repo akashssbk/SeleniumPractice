@@ -44,24 +44,27 @@ class Navigation:
   def closeBrowser(self):
     self.takeScreenshot()
     self.driver.close()
+    
+def startNavigation() 
+  obj = Navigation()
+  obj.openUrl()
+  obj.clickElementByLinkText("Contact Us")
 
-obj = Navigation()
-obj.openUrl()
-obj.clickElementByLinkText("Contact Us")
+  obj.clickElementByX_Path("//form[@id='ajax-contact-form']/input[1]")
+  obj.sendKeysToElement("auto")
 
-obj.clickElementByX_Path("//form[@id='ajax-contact-form']/input[1]")
-obj.sendKeysToElement("auto")
+  obj.clickElementByX_Path("//form[@id='ajax-contact-form']/input[2]")
+  obj.sendKeysToElement("auto@gmail.com")
 
-obj.clickElementByX_Path("//form[@id='ajax-contact-form']/input[2]")
-obj.sendKeysToElement("auto@gmail.com")
+  obj.clickElementByX_Path("//form[@id='ajax-contact-form']/input[3]")
+  obj.sendKeysToElement("0123456789")
 
-obj.clickElementByX_Path("//form[@id='ajax-contact-form']/input[3]")
-obj.sendKeysToElement("0123456789")
+  obj.clickElementByX_Path("//form[@id='ajax-contact-form']/textarea[1]")
+  obj.sendKeysToElement("Hello PCCOE!!!!!!")
 
-obj.clickElementByX_Path("//form[@id='ajax-contact-form']/textarea[1]")
-obj.sendKeysToElement("Hello PCCOE!!!!!!")
+  obj.clickElementByX_Path("//form[@id='ajax-contact-form']/input[4]")
 
-obj.clickElementByX_Path("//form[@id='ajax-contact-form']/input[4]")
+  print('Message sent successfully')
+  obj.closeBrowser()
 
-print('Message sent successfully')
-obj.closeBrowser()
+startNavigation()
