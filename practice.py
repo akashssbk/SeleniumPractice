@@ -5,8 +5,8 @@ import boto3
 class Navigation:
   def __init__(self):
     self.url = "http://www.pccoepune.com/";
-    #self.imagePath = "/home/"
-    self.imagePath = "/home/ec2-user/my_app/"
+    self.imagePath = "/home/"
+    #self.imagePath = "/home/ec2-user/my_app/"
     self.s3ImagePath = "/SeleniumApplication/"
     self.imageNo = 1
     self.imageName = "Step"
