@@ -5,7 +5,8 @@ import boto3
 class Navigation:
   def __init__(self):
     self.url = "http://www.pccoepune.com/";
-    self.imagePath = "/home/"
+    #self.imagePath = "/home/"
+    self.imagePath = "/home/ec2-user/my_app/"
     self.imageNo = 1
     self.imageName = "Step"
     self.Element = None
@@ -18,7 +19,7 @@ class Navigation:
     options.add_argument("enable-automation")
     options.add_argument("--disable-infobars")
     options.add_argument("--disable-dev-shm-usage")
-    self.driver = webdriver.Chrome(executable_path=r"./chromedriver", options=options)
+    self.driver = webdriver.Chrome(options=options)
     s3 = boto3.resource('s3')
   
   def openUrl(self):
