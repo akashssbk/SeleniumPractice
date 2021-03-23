@@ -1,5 +1,6 @@
 from selenium.webdriver.chrome.options import Options
 from selenium import webdriver
+import boto3
 
 class Navigation:
   def __init__(self):
@@ -18,7 +19,8 @@ class Navigation:
     options.add_argument("--disable-infobars")
     options.add_argument("--disable-dev-shm-usage")
     self.driver = webdriver.Chrome(executable_path=r"./chromedriver", options=options)
-
+    s3 = boto3.resource('s3')
+  
   def openUrl(self):
     self.driver.get(self.url)
     self.driver.maximize_window()
@@ -26,8 +28,10 @@ class Navigation:
     
   def takeScreenshot(self):
     self.driver.save_screenshot(self.imagePath+self.imageName+str(self.imageNo)+".png")
+    data = open(self.imagePath+self.imageName+str(self.imageNo)+".png", 'rb')
+    self.s3.Bucket('akashbagade-practice').put_object(Key=self.imageName+str(self.imageNo)+".png", Body=data)
     self.imageNo +=1
-  
+    
   def clickElementByLinkText(self,linkText):
     self.Element = self.driver.find_element_by_link_text(linkText)
     self.Element.click()
