@@ -49,7 +49,7 @@ class Navigation:
     self.takeScreenshot()
     self.driver.close()
     
-def startNavigation() 
+def startNavigation():
   obj = Navigation()
   obj.openUrl()
   obj.clickElementByLinkText("Contact Us")
