@@ -7,6 +7,7 @@ class Navigation:
     self.url = "http://www.pccoepune.com/";
     #self.imagePath = "/home/"
     self.imagePath = "/home/ec2-user/my_app/"
+    self.s3ImagePath = "/SeleniumApplication/"
     self.imageNo = 1
     self.imageName = "Step"
     self.Element = None
@@ -30,7 +31,7 @@ class Navigation:
   def takeScreenshot(self):
     self.driver.save_screenshot(self.imagePath+self.imageName+str(self.imageNo)+".png")
     data = open(self.imagePath+self.imageName+str(self.imageNo)+".png", 'rb')
-    self.s3.Bucket('akashbagade-practice').put_object(Key=self.imageName+str(self.imageNo)+".png", Body=data)
+    self.s3.Bucket('akashbagade-practice').put_object(Key=self.s3ImagePath+self.imageName+str(self.imageNo)+".png", Body=data)
     self.imageNo +=1
     
   def clickElementByLinkText(self,linkText):
