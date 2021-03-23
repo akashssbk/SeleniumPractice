@@ -20,7 +20,7 @@ class Navigation:
     options.add_argument("--disable-infobars")
     options.add_argument("--disable-dev-shm-usage")
     self.driver = webdriver.Chrome(options=options)
-    s3 = boto3.resource('s3')
+    self.s3 = boto3.resource('s3')
   
   def openUrl(self):
     self.driver.get(self.url)
