@@ -13,6 +13,9 @@ class Navigation:
     self.Element = None
     self.bucket = 'akashbagade-practice'
     self.s3object = 'images/Collaboration.png'
+    self.preSignedUrl = ''
+    self.topicName = 'akash-bagade-practice.fifo'
+    self.snsARN = 'arn:aws:sns:us-east-1:130159455024:akash-bagade-practice-1'
     options = Options()
     options.add_argument("--headless")
     options.add_argument("window-size=1400,1500")
@@ -26,6 +29,7 @@ class Navigation:
     self.driver = webdriver.Chrome(options=options)
     self.s3 = boto3.resource('s3')
     self.s3Client = boto3.client('s3')
+    self.snsClient = boto3.client('sns')
     
   def openUrl(self):
     self.driver.get(self.url)
@@ -56,9 +60,12 @@ class Navigation:
     self.driver.close()
     
   def createPresignedUrl(self,s3object,exp):
-    preSignedUrl = self.s3Client.generate_presigned_url('get_object', Params={'Bucket': self.bucket, 'Key': s3object}, ExpiresIn=exp)
-    print(preSignedUrl)
+    self.preSignedUrl = self.s3Client.generate_presigned_url('get_object', Params={'Bucket': self.bucket, 'Key': s3object}, ExpiresIn=exp)
+    #print(preSignedUrl)
     
+  def sendEmail(self):
+    self.snsClient.publish(Message=self.preSignedUrl, TopicArn=self.snsARN)
+    print('URL mailed successfully!')
     
 def startNavigation():
   obj = Navigation()
