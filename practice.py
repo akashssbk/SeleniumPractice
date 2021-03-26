@@ -12,10 +12,9 @@ class Navigation:
     self.imageName = "Step"
     self.Element = None
     self.bucket = 'akashbagade-practice'
-    self.s3object = 'images/Collaboration.png'
-    self.preSignedUrl = ''
-    self.topicName = 'akash-bagade-practice.fifo'
-    self.snsARN = 'arn:aws:sns:us-east-1:130159455024:akash-bagade-practice-1'
+    #self.s3object = 'images/Collaboration.png'
+    #self.preSignedUrl = ''
+    #self.snsARN = 'arn:aws:sns:us-east-1:130159455024:akash-bagade-practice-1'
     options = Options()
     options.add_argument("--headless")
     options.add_argument("window-size=1400,1500")
@@ -28,8 +27,10 @@ class Navigation:
     #self.driver = webdriver.Chrome(executable_path=r"./chromedriver", options=options)
     self.driver = webdriver.Chrome(options=options)
     self.s3 = boto3.resource('s3')
-    self.s3Client = boto3.client('s3')
-    self.snsClient = boto3.client('sns')
+    #self.s3Client = boto3.client('s3')
+    #self.snsClient = boto3.client('sns')
+    self.lambdaClient = boto3.client('lambda')
+    self.lambdafunc = 's3Url'
     
   def openUrl(self):
     self.driver.get(self.url)
@@ -58,7 +59,7 @@ class Navigation:
   def closeBrowser(self):
     self.takeScreenshot()
     self.driver.close()
-    
+'''   
   def createPresignedUrl(self,s3object,exp):
     self.preSignedUrl = self.s3Client.generate_presigned_url('get_object', Params={'Bucket': self.bucket, 'Key': s3object}, ExpiresIn=exp)
     #print(preSignedUrl)
@@ -66,6 +67,11 @@ class Navigation:
   def sendEmail(self):
     self.snsClient.publish(Message=self.preSignedUrl, TopicArn=self.snsARN)
     print('URL mailed successfully!')
+'''    
+  def sendUrlToMail(self):
+    response = self.lambdaClient.invoke(FunctionName=self.lambdafunc, InvocationType='RequestResponse')
+    return response
+    
     
 def startNavigation():
   obj = Navigation()
@@ -87,9 +93,9 @@ def startNavigation():
   obj.clickElementByX_Path("//form[@id='ajax-contact-form']/input[4]")
 
   print('Message sent successfully')
-  obj.createPresignedUrl(obj.s3object,3600)
-  obj.sendEmail()
-  
+  #obj.createPresignedUrl(obj.s3object,3600)
+  #obj.sendEmail()
+  print(obj.sendUrlToMail())
   obj.closeBrowser()
 
 startNavigation()
