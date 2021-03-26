@@ -79,7 +79,7 @@ def startNavigation():
   obj.clickElementByX_Path("//form[@id='ajax-contact-form']/input[4]")
 
   print('Message sent successfully')
-  obj.createPresignedUrl(self,obj.s3object,3600)
+  obj.createPresignedUrl(obj.s3object,3600)
   obj.closeBrowser()
 
 startNavigation()
