@@ -29,6 +29,7 @@ class Navigation:
     self.s3 = boto3.resource('s3')
     #self.s3Client = boto3.client('s3')
     #self.snsClient = boto3.client('sns')
+    boto3.setup_default_session(region_name='us-east-1')
     self.lambdaClient = boto3.client('lambda')
     self.lambdafunc = 's3Url'
     
