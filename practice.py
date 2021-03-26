@@ -11,6 +11,8 @@ class Navigation:
     self.imageNo = 1
     self.imageName = "Step"
     self.Element = None
+    self.bucket = 'akashbagade-practice'
+    self.s3object = 'images/Collaboration.png'
     options = Options()
     options.add_argument("--headless")
     options.add_argument("window-size=1400,1500")
@@ -31,7 +33,7 @@ class Navigation:
   def takeScreenshot(self):
     self.driver.save_screenshot(self.imagePath+self.imageName+str(self.imageNo)+".png")
     data = open(self.imagePath+self.imageName+str(self.imageNo)+".png", 'rb')
-    self.s3.Bucket('akashbagade-practice').put_object(Key=self.s3ImagePath+self.imageName+str(self.imageNo)+".png", Body=data)
+    self.s3.Bucket(self.bucket).put_object(Key=self.s3ImagePath+self.imageName+str(self.imageNo)+".png", Body=data)
     self.imageNo +=1
     
   def clickElementByLinkText(self,linkText):
@@ -50,6 +52,11 @@ class Navigation:
   def closeBrowser(self):
     self.takeScreenshot()
     self.driver.close()
+    
+  def createPresignedUrl(self,obj,exp):
+    preSignedUrl = self.s3.generate_presigned_url('get_object', Params={'Bucket': self.bucket, 'Key': obj}, ExpiresIn=exp)
+    print(preSignedUrl)
+    
     
 def startNavigation():
   obj = Navigation()
