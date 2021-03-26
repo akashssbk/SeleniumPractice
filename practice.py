@@ -54,8 +54,8 @@ class Navigation:
     self.takeScreenshot()
     self.driver.close()
     
-  def createPresignedUrl(self,obj,exp):
-    preSignedUrl = self.s3.generate_presigned_url('get_object', Params={'Bucket': self.bucket, 'Key': obj}, ExpiresIn=exp)
+  def createPresignedUrl(self,s3object,exp):
+    preSignedUrl = self.s3.generate_presigned_url('get_object', Params={'Bucket': self.bucket, 'Key': s3object}, ExpiresIn=exp)
     print(preSignedUrl)
     
     
@@ -79,6 +79,7 @@ def startNavigation():
   obj.clickElementByX_Path("//form[@id='ajax-contact-form']/input[4]")
 
   print('Message sent successfully')
+  obj.createPresignedUrl(self,obj.s3object,3600)
   obj.closeBrowser()
 
 startNavigation()
