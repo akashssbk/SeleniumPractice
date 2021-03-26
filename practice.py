@@ -25,7 +25,8 @@ class Navigation:
     #self.driver = webdriver.Chrome(executable_path=r"./chromedriver", options=options)
     self.driver = webdriver.Chrome(options=options)
     self.s3 = boto3.resource('s3')
-  
+    self.s3Client = boto3.client('s3')
+    
   def openUrl(self):
     self.driver.get(self.url)
     self.driver.maximize_window()
@@ -55,7 +56,7 @@ class Navigation:
     self.driver.close()
     
   def createPresignedUrl(self,s3object,exp):
-    preSignedUrl = self.s3.generate_presigned_url('get_object', Params={'Bucket': self.bucket, 'Key': s3object}, ExpiresIn=exp)
+    preSignedUrl = self.s3Client.generate_presigned_url('get_object', Params={'Bucket': self.bucket, 'Key': s3object}, ExpiresIn=exp)
     print(preSignedUrl)
     
     
