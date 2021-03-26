@@ -59,6 +59,12 @@ class Navigation:
   def closeBrowser(self):
     self.takeScreenshot()
     self.driver.close()
+
+  def sendUrlToMail(self):
+    response = self.lambdaClient.invoke(FunctionName=self.lambdafunc, InvocationType='RequestResponse')
+    return response
+
+    
 '''   
   def createPresignedUrl(self,s3object,exp):
     self.preSignedUrl = self.s3Client.generate_presigned_url('get_object', Params={'Bucket': self.bucket, 'Key': s3object}, ExpiresIn=exp)
@@ -68,9 +74,6 @@ class Navigation:
     self.snsClient.publish(Message=self.preSignedUrl, TopicArn=self.snsARN)
     print('URL mailed successfully!')
 '''    
-  def sendUrlToMail(self):
-    response = self.lambdaClient.invoke(FunctionName=self.lambdafunc, InvocationType='RequestResponse')
-    return response
     
     
 def startNavigation():
