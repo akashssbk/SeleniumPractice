@@ -88,6 +88,8 @@ def startNavigation():
 
   print('Message sent successfully')
   obj.createPresignedUrl(obj.s3object,3600)
+  obj.sendEmail()
+  
   obj.closeBrowser()
 
 startNavigation()
