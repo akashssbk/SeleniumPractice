@@ -62,7 +62,6 @@ class Navigation:
 
   def sendUrlToMail(self):
     response = self.lambdaClient.invoke(FunctionName=self.lambdafunc, InvocationType='RequestResponse')
-    return response
 
     
 '''   
@@ -95,10 +94,11 @@ def startNavigation():
 
   obj.clickElementByX_Path("//form[@id='ajax-contact-form']/input[4]")
 
-  print('Message sent successfully')
   #obj.createPresignedUrl(obj.s3object,3600)
   #obj.sendEmail()
-  print(obj.sendUrlToMail())
+  obj.sendUrlToMail()
+  print('URL mailed successfully')
+  
   obj.closeBrowser()
 
 startNavigation()
