@@ -5,8 +5,8 @@ import boto3
 class Navigation:
   def __init__(self):
     self.url = "http://www.pccoepune.com/";
-    #self.imagePath = "/home/"
-    self.imagePath = "/home/ec2-user/my_app/"
+    self.imagePath = "/home/"
+    #self.imagePath = "/home/ec2-user/my_app/"
     self.s3ImagePath = "/SeleniumApplication/"
     self.imageNo = 1
     self.imageName = "Step"
@@ -24,8 +24,8 @@ class Navigation:
     options.add_argument("enable-automation")
     options.add_argument("--disable-infobars")
     options.add_argument("--disable-dev-shm-usage")
-    #self.driver = webdriver.Chrome(executable_path=r"./chromedriver", options=options)
-    self.driver = webdriver.Chrome(options=options)
+    self.driver = webdriver.Chrome(executable_path=r"./chromedriver", options=options)
+    #self.driver = webdriver.Chrome(options=options)
     self.s3 = boto3.resource('s3')
     #self.s3Client = boto3.client('s3')
     #self.snsClient = boto3.client('sns')
